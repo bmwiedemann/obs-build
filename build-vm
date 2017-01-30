@@ -65,7 +65,6 @@ VM_WORKER_NR=
 
 # kvm specific?
 HUGETLBFSPATH=
-VM_CUSTOMOPT=
 
 # emulator specific?
 EMULATOR_SCRIPT=
