@@ -27,6 +27,12 @@ if [ -z "$mailaddr" ]; then
 	[ -z "$domain" ] && domain=localhost
 	mailaddr="$USER@$domain"
 fi
+if [ -z "$realname" ]; then
+	realname=`getent passwd $UID | cut -d: -f5`
+fi
+if [ -n "$realname" ]; then
+	mailaddr="$realname <$mailaddr>"
+fi
 
 EDITOR=${EDITOR:-vim}
 date=`LC_ALL=POSIX TZ=UTC date`
