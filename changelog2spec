@@ -76,10 +76,6 @@ if (@ARGV == 2 && $ARGV[0] eq '--file') {
   my @changes = grep {/\.changes$/} readdir(D);
   closedir(D);
   @changes = sort {length($a) <=> length($b) || $a cmp $b} @changes;
-  # support _service: prefixes, they need to be stripped
-  $file =~ s/^_service:.*://;
-  my %changes = map {/^((?:_service:.*:)?(.*?))$/ ? ($2, $1) : ($_, $_)} @changes;
-  @changes = keys %changes;
   exit(1) unless @changes;	# nothing to do
   if (@changes > 1) {
     while ($file ne '') {
@@ -88,7 +84,7 @@ if (@ARGV == 2 && $ARGV[0] eq '--file') {
 	@changes = @c;
 	last;
       }
-      last unless $file =~ s/[-.][^-.]*$//;
+      last unless $file =~ s/^_service:.*:// or $file =~ s/[-.][^-.]*$//;
     }
   }
   @ARGV = ("$dir/$changes{$changes[0]}");
