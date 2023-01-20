@@ -200,6 +200,7 @@ recipe_build_spec() {
 	rpmbopts[${#rpmbopts[@]}]="--nocheck"
 	rpmbopts[${#rpmbopts[@]}]="--nodeps"
     fi
+    rpmbopts[${#rpmbopts[@]}]="--noclean" # to counter rpm commit b34333fa021c0ee7215714eeef96d1a2843ea08e and still get buildroot diffs for r-b debugging
     if test -n "$BUILD_DEBUG" ; then
 	rpmbopts[${#rpmbopts[@]}]='--define'
 	rpmbopts[${#rpmbopts[@]}]="_build_create_debug 1"
