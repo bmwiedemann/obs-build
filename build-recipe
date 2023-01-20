@@ -228,7 +228,7 @@ recipe_setup_macros() {
 ' >> $BUILD_ROOT/root/$rawcfgmacros
     fi
 
-    if test -n "$BUILD_JOBS" ; then
+    if false && test -n "$BUILD_JOBS" ; then
 	cat >> $BUILD_ROOT/root/$rawcfgmacros <<-EOF
 		%jobs $BUILD_JOBS
 		%_smp_mflags -j$BUILD_JOBS
