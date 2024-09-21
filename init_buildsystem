@@ -574,6 +574,14 @@ getcachedir() {
     test -n "$repoid" && echo "$CACHE_DIR/$repoid"
 }
 
+if [ -z "$PREPARE_VM" -a -r /.sha256sums ] ; then
+    if ! ( cd / && sha256sum --quiet -c /.sha256sums ) ; then
+        echo "Data corruption in build input files detected => aborting"
+        exit 11
+    fi
+fi
+
+
 set_build_arch
 
 trap fail_exit EXIT

@@ -471,6 +471,8 @@ vm_img_mkfs() {
         print "ERROR: populating the filesystem is only supported with ext file systems"
         cleanup_and_exit 1
       fi
+      echo "Hashing build input files"
+      (cd $populate && find -type f -a \! -name os-release -a \! -name .sha256sums -a \! -name .build.log\* -a \! -name aux-cache -print0 | sort -z | xargs -0 sha256sum > .sha256sums)
     fi
 
     if test -z "$mkfs"; then
